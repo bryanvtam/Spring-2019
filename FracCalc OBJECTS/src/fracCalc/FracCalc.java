@@ -20,14 +20,13 @@ public class FracCalc {
     { 
         // TODO: Implement this function to produce the solution to the input
     	// VARIABLES
-        String answer = "";
+        String answers = "";
         String operation = input.split(" ")[1];
         //Initialize objects
         Fraction frac1 = new Fraction(input.split(" ")[0]);
         Fraction frac2 = new Fraction(input.split(" ")[2]);
+        answers = frac1.domath(frac1, frac2, operation);
         
-        
-        
-        return answer;
+        return answers;
     }
 }

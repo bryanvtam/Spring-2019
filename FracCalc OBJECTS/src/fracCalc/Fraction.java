@@ -6,12 +6,14 @@ public class Fraction {
 		private int denominator;
 		private int whole;
 		private int sign;
+		private String answer;
 		
 		public Fraction() { //Initializes the values of the instances
 			numerator = 0;
 			denominator = 1;
 			whole = 0;
 			sign = 1;
+			answer = "";
 		}
 		
 		public Fraction (String op) { //fraction constructor
@@ -50,49 +52,63 @@ public class Fraction {
 				whole = 0;
 				sign = 1;
 			}	
-			
 		}
 		
-		public void reduce(Fraction unreduced) {
+		public void reduce() {
+			int min = numerator;
+			int divisor = 1;
 			
+			if(numerator > denominator) {
+				min = denominator;
+			}
+			
+			for(int i = 1; i <= min; i++) {
+				if(numerator%i == 0 && denominator%i == 0) {
+					divisor = i;
+				}
+				i++;
+			}
+			numerator /= divisor;
+			denominator /= divisor;
 		}
 		
-		public void toMixed(Fraction impropFrac) {
+		public void toMixed() {
+			reduce();
 			
-			
-			if((impropFrac.numerator / impropFrac.denominator) != 0) {
-				impropFrac.whole = (impropFrac.numerator / impropFrac.denominator);
-				if(impropFrac.numerator < 0 ) {
-					impropFrac.numerator *= -1;
-					impropFrac.numerator = (impropFrac.numerator % impropFrac.denominator);
+			if((numerator / denominator) != 0) {
+				whole = (numerator / denominator);
+				if(numerator < 0 ) {
+					numerator *= -1;
+					numerator = (numerator % denominator);
 				}
 			}
 		}
 		
 		
 		
-		public String toString (int[] answerArray) {
-			String answer = "";
-			
-			if(answerArray[0] != 0 ) {
-				answer += answerArray[0];
-				if(answerArray[1] != 0) {
-					answer += "_" + answerArray[1] + "/" + answerArray[2];
+		public String toStringMethod() {
+			if(whole != 0) {
+				answer += whole;
+				if(numerator != 0) {
+					answer+= "_" + numerator + "/" + denominator;
 				}
-			}
-			else if (answerArray[0] == 0 && answerArray[1] == 0){
-				answer += 0;
 			}
 			else {
-				answer += answerArray[1] + "/" + answerArray[2];
+				if(numerator == 0) {
+					answer += 0;
+				}
+				else {
+					answer += numerator + "/" + denominator;
+				}
 			}
 			return answer;
 		}
 
 
-		public static void domath(Fraction frac1, Fraction frac2 , String operation) {
+		public static String domath(Fraction frac1, Fraction frac2 , String operation) {
 			frac1.toImproper();
 			frac2.toImproper();
+			String output = "";
 			Fraction answer = new Fraction();
 			
 			if (operation.equals("+")) {
@@ -112,7 +128,8 @@ public class Fraction {
 				answer.denominator = (frac1.denominator * frac2.numerator);
 			}
 			
-			
-			
+			output = answer.toString();
+			return output;
 		}
+		
 }
