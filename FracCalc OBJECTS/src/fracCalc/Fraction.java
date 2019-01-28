@@ -5,10 +5,9 @@ public class Fraction {
 		private int numerator;
 		private int denominator;
 		private int whole;
-		private int[] frac = {whole, numerator, denominator};
 		private int sign;
 		
-		public Fraction() {
+		public Fraction() { //Initializes the values of the instances
 			numerator = 0;
 			denominator = 1;
 			whole = 0;
@@ -30,6 +29,7 @@ public class Fraction {
 				else {
 					whole = Integer.parseInt(op);
 				}
+				
 			}
 			
 			//determines if it the sign of the fraction, negative or positive
@@ -41,13 +41,78 @@ public class Fraction {
 				sign = -1;
 				whole *= -1;
 			}
+			System.out.println(whole + "," + numerator + "," + denominator + "," + sign);
 		}
 		
 		public void toImproper() {
 			if (whole != 0) {
 				numerator = sign*(numerator + (whole * denominator));
+				whole = 0;
+				sign = 1;
 			}	
+			
 		}
 		
-		public static 
+		public void reduce(Fraction unreduced) {
+			
+		}
+		
+		public void toMixed(Fraction impropFrac) {
+			
+			
+			if((impropFrac.numerator / impropFrac.denominator) != 0) {
+				impropFrac.whole = (impropFrac.numerator / impropFrac.denominator);
+				if(impropFrac.numerator < 0 ) {
+					impropFrac.numerator *= -1;
+					impropFrac.numerator = (impropFrac.numerator % impropFrac.denominator);
+				}
+			}
+		}
+		
+		
+		
+		public String toString (int[] answerArray) {
+			String answer = "";
+			
+			if(answerArray[0] != 0 ) {
+				answer += answerArray[0];
+				if(answerArray[1] != 0) {
+					answer += "_" + answerArray[1] + "/" + answerArray[2];
+				}
+			}
+			else if (answerArray[0] == 0 && answerArray[1] == 0){
+				answer += 0;
+			}
+			else {
+				answer += answerArray[1] + "/" + answerArray[2];
+			}
+			return answer;
+		}
+
+
+		public static void domath(Fraction frac1, Fraction frac2 , String operation) {
+			frac1.toImproper();
+			frac2.toImproper();
+			Fraction answer = new Fraction();
+			
+			if (operation.equals("+")) {
+				answer.numerator = (frac1.numerator * frac2.denominator) + (frac2.numerator * frac1.denominator);
+				answer.denominator = frac1.denominator * frac2.denominator;
+			}
+			else if (operation.equals("-")) {
+				answer.numerator = (frac1.numerator * frac2.denominator) - (frac2.numerator * frac1.denominator);
+				answer.denominator = frac1.denominator * frac1.denominator;
+			}
+			else if (operation.equals("*")) {
+				answer.numerator = (frac1.numerator * frac2.numerator);
+				answer.denominator = (frac1.denominator * frac2.denominator);
+			}
+			else if (operation.equals("/")) {
+				answer.numerator = (frac1.numerator * frac2.denominator);
+				answer.denominator = (frac1.denominator * frac2.numerator);
+			}
+			
+			
+			
+		}
 }
