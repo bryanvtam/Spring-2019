@@ -25,10 +25,7 @@ public class FracCalc {
         //Initialize objects
         Fraction frac1 = new Fraction(input.split(" ")[0]);
         Fraction frac2 = new Fraction(input.split(" ")[2]);
-        Fraction answer = new Fraction();
-        answer.domath(frac1, frac2, operation);
-        answer.toString();
-
+        frac1.domath(frac1, frac2, operation);
         return answers;
     }
 }
